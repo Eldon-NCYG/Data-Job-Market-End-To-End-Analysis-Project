@@ -6,6 +6,86 @@ Rather than doing a simple surface level summary about the data (which can be sh
 
 I have organised my analysis into four different categories of questions. Each category has questions designed to yieled deeper, decision-relevant insights. The SQL file showing all queries to answer these questions is [here](sql_scripts/analysis.sql).
 
+## Role Comparison Analysis: Which career path offers the highest salary return relative to its technical complexity?
+
+### **Market Share & Saturation**
+
+#### Which roles dominate and are the most in-demand in the current data job market.
+
+![Job Market Share](<Images/Analysis Images/Market Trends/job_market_share_table.png>)
+
+- This is just a quick reference for the data job market share. It is always helpful to know what the distribution is like for future reference.
+  ![Job Market Share Chart](<Images/Analysis Images/Market Trends/job_market_share_vis.png>)
+
+### **Technical ROI for Salary & Opportunities:**
+
+#### Which job role offers the highest salary return and most opportunitites relative to its technical complexity? Considering technical skills and if a degree is required.
+
+![alt text](<Images/Analysis Images/Role Comparison/technical_roi_table.png>)
+Note: In this query, i am only considering entry, junior and mid-level job postings as this question is designed to help candidates decide what role to choose based on its technical requirements, so senior roles are left out. Postings that don't have a visible salary is also left out.
+
+- **Understanding Salary ROI Score:** Salary ROI Score is a made up metric that represents the ROI based how good a role's salary is considering its technical requirements. The formula is Average Salary / Average skill count + Average degree rate.
+- **Understanding Market Opportunity ROI Score:** Market Opportunity ROI Score is a made up metric that represents the how good a role's market opportunity is based on its technical requirements. The formula is Technical ROI score \* log(Number of roles)
+  ![alt text](<Images/Analysis Images/Role Comparison/technical_roi_vis.png>)
+- **Data Engineer Volume Trap:** Even though Data Engineering roles have the most market share in this job market (shown before), it yields the second lowest total ROI score in this analysis. The role requires a high number of difficult skills (Cloud, ETL, Spark, DevOps) and often carries a higher degree requirement, yet the salary premium does not scale proportionally with that effort for a candidate to pursue this path. This may explain why there are so many Data Engineering Job postings on the market. There aren't enough people willing to endure the learning curve, leaving the industry with a shortage of Data Engineers.
+- **Complexity Premium:** The salary ROI chart shows that Software Engineers, Machine Learning Engineers, and Data Scientists hold the top 3 spots. These roles are arguably the most technically difficult to learn out of all the jobs in the job market. With these roles having such a high salary ROI considering their techinical complexity, it shows that the market provides a significant "Complexity Premium" compensation.
+- **Data vs. Business Analyst Roles:** While there is significant overlap between Data and Business Analysts, the data shows a clear winner from an ROI perspective. Data Analytics provides a much higher return on investment, offering better pay and more opportunities for a similar level of complexity. For candidates choosing between the two, Data Analytics is the statistically more rewarding field to pursue.
+
+### **Seniority Salary & Opportunity Difference:**
+
+#### Does seniority in different roles make a big difference in yearly salary?
+
+![alt text](<Images/Analysis Images/Role Comparison/seniority_salary_comparison_table.png>)
+![alt text](<Images/Analysis Images/Role Comparison/seniority_salary_comparison_vis.png>)
+
+- **Complexity Salary Compensation:** The analysis consistently shows that "High-Complexity" roles (Software Engineering, ML, Data Science) are compensated with much higher base salaries and larger salary increments as seniority progresses. This confirms that the market values deep theoretical knowledge and specialized technical skills more than generalist business insights.
+- **Data Engineer Shortage Evidence:** A high `mid_level_avg_salary` compared to a `junior_avg_salary` for Data Engineers suggests a high-demand for more experienced Data Engineers. To secure candidates who have moved past the initial steep learning curve, employers offer a larger "experience premium," even at the mid-level.
+- **Small Salary Growth for Data Analysts:** As Data Analysts progress in seniority, their average salary only increases by about $10k - $15k, the smallest increments among all roles. This suggests that the technical ceiling for this role is lower, making it a good entry poiont but less lucrative as a 20-year career path. This trend explains why in the industry, many Data Analysts eventially switch over to more technical roles like Data Science or Engineering for salary growth (if they don't aim for managerial roles).
+
+#### **Degree Importance:**
+
+#### How does degree market share vary across roles, and does a degree requirement translate into a higher salary?
+
+![alt text](<Images/Analysis Images/Role Comparison/degree_table.png>)
+![alt text](<Images/Analysis Images/Role Comparison/degree_vis1.png>)
+
+- **Academic Requirement Roles:** Machine Learning Engineering and Data Science stand are the roles with the highest academic barriers to entry. These two roles require mastery of very theoretical concepts like advanced machine learning concepts, advanced calculus, linear algebra, and complex statistical modeling. Because these theoretical concepts are often too difficult to master without guidance and are traditionally taught through university degrees, these roles almost always require at least a bachelor's, if not higher form of education.
+- **Applied Roles:** All the other data roles have a relatively similar proportion of degree requirements. While having a degree is still a competitive advantage, these roles are fundamentally more practical/applied rather than theoretical. They focus on practical execution of the latest data tools/software which can often be mastered through self-study, bootcamps, and hands-on personal projects.
+
+### **Role Based Remoteness**
+
+#### Which specific job roles the the highest 'Remote Market Share', and is there a significant pay difference between remote and on-site positions for the same title?
+
+![alt text](<Images/Analysis Images/Role Comparison/remote_table.png>)
+![alt text](<Images/Analysis Images/Role Comparison/remote_vis1.png>)
+
+- **Most Remotely Available Roles:** The engineering roles, spcifically Data, Software, and Machine Learning Engineers (except for Cloud Engineers) have the largest remote market. Because these roles rely on independent technical execution and don't require as many meetings with clients and stakeholders, they are most remotely available.
+- **Least Remotely Available Roles:** Data Scientists, Data & Business Analysts have the smallest remote market. Because these roles are responsible for delivering business insights, strategies, and future plan recommendations, they require high-touch collaboration and frequent stakeholder meetings, which some companies still prefer conduct do in person to ensure alignment and clear communication.
+- **Cloud Engineers - Least Remotely Available:** Cloud Engineers manage Hybrid Infrastructures, where the company still has physical servers or data centers on-site. When a physical server fails or a local network switch drops, the Cloud Engineer needs to be there to fix it ASAP. For industries like Defense, Banking, or Healthcare, accessing production environments from a home network is prohibited, as it is often seen as an unacceptable security risk.
+  ![alt text](<Images/Analysis Images/Role Comparison/remote_vis2.png>)
+- **Remote Premium:** The more technical engineer roles like Software, Data, and Machine Learning Engineers are not only more remotely available, they also have slightly higher salaries for remote postings. This is likely because companies are competing to secure top-tier technical talent, so the choice of being onsite or remote can be more appealing to more of these candidates.
+- **Analyst Onsite Premium:** Business and especially Data analysts have higher salaries for onsite positions. This is very likely to compensate analysts for the cost of living and the requirement to be physically present for stakeholder collaboration.
+
+#### **Skill Overlap between Data Analysts & Data Scientists:**
+
+There seems to be a lot of nuance between these roles and they are often mistaken for each other for a lot of job postings, especially when hiring managers are creating job postings and don't know the actual difference between Data Analysts & Scientists. Data Analysts also often switch over to Data Science roles as they progress in their career as Data Science roles offers a higher pay. So what percentage of Data Analyst skills overlap with Data Scientist Skills?
+![alt text](<Images/Analysis Images/Role Comparison/da_overlap_ds_vis.png>)
+![alt text](<Images/Analysis Images/Role Comparison/ds_overlap_da_vis.png>)
+
+- **Fundamental Core:** There is a massive overlap in foundational skills, specifically SQL and Python. Both roles often require Python and SQL as some of their top skills. This is why the transition is possible; a Data Analyst already has the "base" required to function in a Data Science environment.
+- **Visualisation Tools:** Visualization tools like Tableau or Power BI also appear frequently in both, though they are more prevelant for Data Analysts.
+- **Transitioning from Data Analytics to Science:** Roughly 70% of a Data Analyst's technical skillset is applicable to Data Science. The remaining 30% consists of machine learning libraries and advanced statistical modeling. These more technical skills are what differentiates a Data Analyst from a Data Scientist, and is rewarded with a higher salary.
+
+#### Role Comparison Analysis Key Insights:
+
+- **Complexity Premium:** Data Scientists, Software & ML Engineers offer the market's best technical ROI, rewarding professionals who master the industry's most difficult technical skills and concepts the highest compensation in pay. These salaries can dramatically increase as professionals advance in seniority.
+- **Data Engineer Volume Trap:** Despite Data Engineering roles have the most market share, it has the lowest total technical ROI. This is due to the role's complexity and requirements. There aren't enough people willing to endure the learning curve, leaving the industry with a shortage of Data Engineers.
+- **Analyst Career Pivot:** Between Business & Data Analaysts, Data Analytics yields a higher return on investment when it comes to both salary and job opportunities. But because of these role's low complexity, their base salaries are typically lower. So as analysts progress in their career, many would eventually switch over to Data Science for salary growth.
+- **Data Analysts Vs. Data Scientists Skillset:** Roughly 70% of a Data Analyst's technical skillset is applicable to Data Science. The remaining 30% consists of machine learning libraries and advanced statistical modeling. These more technical skills are what differentiates a Data Analyst from a Data Scientist, and is rewarded with a higher salary.
+- **Role Remoteness:** Technically heavy roles Engineers have the largest remote market as their roles focus on independent technical execution and involve fewer client-facing meetings. Business intelligence roles like Analysts are responsible for informing stakeholders about insights and presenting strategies, which require in-person collaboration to ensure clear communication. So these roles have a smaller remote market.
+- **Remote Vs. Onsite Pay:** The technically heavy roles Engineers have a "Remote Premium" as companies compete globally for technical talent. Analysts, however, are often offered higher onsite salaries, to compensate for cost of living expenses and physical presence requirements for client meetings.
+- **Degree Requirement:** Roles that involve heavy theoretical concepts often have a degree as a requirement like ML Engineers & Data Scientists. Having a degree for more applied, practical execution focused roles is a competitive advantage, but these 'applied' skills can often be self taught.
+
 ## Technical Skill Importance: What skills should I learn to stay ahead of the curve and have the best ROI?
 
 ### **Foundational Skills:**
@@ -18,8 +98,7 @@ I have organised my analysis into four different categories of questions. Each c
 - **Opportunity Cost:** If someone lacks Python or SQL in their skillset, statistically, they are out of over half of the total jobs in this dataset.
 - These two skills would be considered foundational skills every individual in the job market should know.
 - **Cloud Computing Rise:** There is also a strong demand in cloud computing platforms like AWS (21%) and Azure (19.6%). This makes sense as cloud computing has been rising in popularity in the past couple of years.
-![Foundational Skills Visualisation](<Images/Analysis Images/Skills/skills_foundational_vis.png>)
-
+  ![Foundational Skills Visualisation](<Images/Analysis Images/Skills/skills_foundational_vis.png>)
 
 ### **Skills Trending in 2024:**
 
@@ -50,137 +129,110 @@ I have organised my analysis into four different categories of questions. Each c
 ![Skill Density & Compensation Table](<Images/Analysis Images/Skills/skills_variety_compensation.png>)
 ![Skill Density & Compensation Vis](<Images/Analysis Images/Skills/skill_variety_compensation_vis.png>)
 ![Skill Density & Compensation Distribution](<Images/Analysis Images/Skills/skill_variety_compensation_vis_2.png>)
+
 - **Efficiency Collapse:** From an ROI perspective, skill efficiency significantly drops as you add more skill requirements. A specialist (1 - 2 skills) earns roughly $278k per skill whereas a standard professional (3 - 5 skills) earns an average of $60k per skill. By the time a professional reaches 10+ skills, they are earning only about $19k per skill. This is about a 14x decrease from a specialist with 1 - 2 skills.
 - **Marginal Returns in skill acquisition:** Expanding your skillset to 10+ skills results in nearly stagnant salary growth. The effort required to learn and maintain this many skills for about a 1% increase in salary ($243k - $245k) represents a very poor ROI.
 - **Depth over Breadth:** The data consistently shows that is more lucrative to focus on "technical depth" - mastering a couple of skills, rather than being a "jack of all trades" - skimming the surface of lots of skills.
 - **Job Opportunity:** The market shows that you don't need a massive skillset to stay competitive. About 65% of job postings require 5 skills or fewer, while 45% of job postings require 6 or more.
 
 ### Overall Market Technical Skill Importance Key Inights:
+
 - **Foundational "Must-Have" Skills:** Python & SQL are the two skills that should be considered foundational skills which every candidate should have in their skillset. Lacking either skill effectively disqualifies a candidate from over half of all roles in the data tech field, regardless of seniority.
 - **2024 AI Pivot:** Hugging Face emerged as the definitive trending sill of 2024 with a 322.3% growth rate. This indicates a fundamental shift in the data industry's tech stack, now focusing on Generative AI integration and agentic workflows over traditional predictive analytics.
 - **Skillset Efficiency:** To to succeed in this job market, the data suggests a depth over breadth approach when it comes to learning technical skills, as 65% of job postings require five skills or fewer. To maximise efficiency, mastering 1-2 in-demand skills yields a 14x higher ROI-per-skill than a broad & shallow skillset.
 
-
 ## Job Market Trends: How did hiring volatility and seniority shifts throughout 2024 affect the job market?
 
-### **Market Share & Saturation**
-#### Which roles dominate and are the most in-demand in the current data job market.
-![Job Market Share](<Images/Analysis Images/Market Trends/job_market_share_table.png>)
-- This is just a quick reference for the data job market share. It is always helpful to know what the distribution is like for future reference.
-![Job Market Share Chart](<Images/Analysis Images/Market Trends/job_market_share_vis.png>)
-
-
-
-
 ### **Were there hiring seasons during 2024?:**
+
 ![Hiring Seasons Table](<Images/Analysis Images/Market Trends/hiring_seasons_table.png>)
 
 The month over month percentage change is showing a steady decline as the year progresses.
 ![Monthly vs Moving Average](<Images/Analysis Images/Market Trends/hiring_seasons_moving_avg_vs_monthly.png>)
 **The data shows three distinct hiring seasons that a job seeker should know:**
+
 - **Quarter 1 Peak:** Hiring was at its highest in Jan (52,917) and Feb (55,336). This is statistically the best time to apply, as many companies are adjusting to new annual budgets and headcounts.
 - **Mid-Year Surge:** After a steady decline through quarter 2, July saw a massive 21.7% month-over-month increase. This represents another crucial hiring window.
 - **Pre-hiring Window:** The market experienced a very sharp decline in hiring from Sep - Nov (bottoming out at 13,719 jobs). The 124.7% jump in month-over-month increase in December (30,831) indicates a very strong "pre-hiring" phase, where companies are getting ready for the following year.
-![Month over Month hires](<Images/Analysis Images/Market Trends/month_over_month_hires.png>)
+  ![Month over Month hires](<Images/Analysis Images/Market Trends/month_over_month_hires.png>)
 
+### **Is the barrier of entry into the data tech field getting higher?:**
 
-### **Is the barrier of entry into the data tech field getting higher?:** 
 #### Is the market favouring senior or junior roles? How did the number of senior and junior roles change throughout 2024?
+
 ![Barrier to Entry Table](<Images/Analysis Images/Market Trends/barrier_to_entry_table.png>)
 ![Seniority Growth Percentage](<Images/Analysis Images/Market Trends/growth_percentage.png>)
 
-- **Seniority Favoured:** The data job market in 2024 was heavily favouring professionals with established experience. 
+- **Seniority Favoured:** The data job market in 2024 was heavily favouring professionals with established experience.
 - For every 1 Junior job posted in 2024, there were approximately 31 Mid-level jobs. This confirms that the barrier to entry for the data job market is getting higher.
 - **Economic Struggle Worldwide:** A potential reason for this could be due to the slower worldwide economic growth (a lot of countries in recession) in 2024, leading to companies trying to cut costs on employees by prioritising candidates who can contribute immediately without extensive training.
 
-
 ### **Role Specific Volatility:** Which specific roles showed the most consistent hiring volume regardless of the season?
+
 ![Volatility Table](<Images/Analysis Images/Market Trends/volatility_table.png>)
+
 - **Understanding Volatility (Standard Deviation):** `volatility_sd` is the average amount that the monthly job count deviates from the `avg_monthly_vol`. Typically, the higher the higher the average monthly job posting volume is, the higher the volatility.
 - **Fair Comparison of Volatility:** To fairly track volatility, we use `stability_score`, which is `volatility_sd` / `avg_monthly_vol`. A higher score indicates a more "stable" role, where hiring remains consistent relative to its size.
 - The table indicates that even if a role's average monthly job posting volume is high, it doesn't correspond to a high stability score.
 - **Role Volatility comparison:** Analyst and Engineering roles are the most volatile, meaning their hiring is highly reactive to immediate business needs and seasonal shifts. Data Scientist roles were the most stable job role in the data job market.
 - **Recommendation for Job Seekers:** Targeting highly stable roles like Data Science increases risk of 'seasonal rejection', whereas aiming for roles like Data & Business Analyst roles may require more precise timing to align with peak hiring windows during the year.
-![Volatility Visualisation](<Images/Analysis Images/Market Trends/volatility_vis.png>)
-
+  ![Volatility Visualisation](<Images/Analysis Images/Market Trends/volatility_vis.png>)
 
 ### Overall Market Trends Key Insights:
-- **Volume Vs. Stability:** The data shows that the 2024 data job market that favours Data Science for stability and Data Engineering for sheer volume. Analyst and Engineering roles are the most volatile, meaning their hiring is highly reactive to immediate business needs and seasonal shifts.
-- **Seniority Pivot:** The data job market in 2024 was increasingly favouring more experienced workers as the year went on to potentially cut down training & liability costs. 
-- **Hiring Seasonality:** The market has three distinct phases: a Q1 Peak (Jan-Feb), a Mid-Year Surge (July), and a Pre-hiring Window (December). The 124.7% spike in December indicates companies are preparing a month before budgets officially reset for the next year.
 
+- **Volume Vs. Stability:** The data shows that the 2024 data job market that favours Data Science for stability and Data Engineering for sheer volume. Analyst and Engineering roles are the most volatile, meaning their hiring is highly reactive to immediate business needs and seasonal shifts.
+- **Seniority Pivot:** The data job market in 2024 was increasingly favouring more experienced workers as the year went on to potentially cut down training & liability costs.
+- **Hiring Seasonality:** The market has three distinct phases: a Q1 Peak (Jan-Feb), a Mid-Year Surge (July), and a Pre-hiring Window (December). The 124.7% spike in December indicates companies are preparing a month before budgets officially reset for the next year.
 
 ## Geographical Influence: Where are the best job opportunities located?
 
 ### **Global Opportunity Density:**
 
 #### Which countries have the highest number of job postings relative to the number of unique companies hiring there?
+
 ![Opportunity Density Table](<Images/Analysis Images/Geographical Influence/opportunity_density_table.png>)
 ![Opportunity Density Visualistion](<Images/Analysis Images/Geographical Influence/opportunity_density_vis.png>)
+
 - **Density Ratio:** This is `total_jobs` / `unique_companies`,representing the average number of job postings per company in a specific country. This serves as a metric for market concentration.
 - **High Density, Emerging Countries:** Countries with a smaller data job market frequently show the highest density ratio. This occurs because global tech infrastructure is often concentrated within a few major firms in these regions rather than spread across a broad local ecosystem. El Salvador (8.62) and Guam (8.60) lead global rankings, suggesting a market dominated by a small number of high-volume hirers.
 - **U.S. as the Central Tech Hub:** The data shows The United States is the definitive global leader in tech job opportunities. With 140,364 total jobs and 25,429 unique companies, it significantly outpaces every other country in the dataset, solidifying its status as the world’s central tech hub.
 - **Secondary Global Tech Hubs:** Aside from the U.S. being the obvious tech hub, the data shows India and several European countries (such as U.K. Germany and France) as the secondary hubs.
 - While these tech hub nations don't always have the highest density ratios, their high volume of unique companies indicates a more developed hiring landscape compared to emerging markets.
-![alt text](<Images/Analysis Images/Geographical Influence/opportunity_map_vis.png>)
-
+  ![alt text](<Images/Analysis Images/Geographical Influence/opportunity_map_vis.png>)
 
 ### **Remote Job Distribution and pay:**
 
 #### Which countries have embraced remote work, and which countries are staying in the office? And do remote and onsite jobs differ in pay?
+
 ![alt text](<Images/Analysis Images/Geographical Influence/remote_table.png>)
+
 - **Remote-Forward Hubs:** Remote adoption rate is higher within Western Countries. Canada (24.9%), Mexico (22.1%), and Poland (20.7%) showing significant remote job proportions.
 - **Traditional In Office Cultures**: Remote adoption remains lowest in most Asian countries. Traditional "in-office" cultures persist in these regions, despite the global shift in tech. For example, Hong Kong (1.6%), Singapore (2.7%), and Malaysia (2.9%). This reluctance to adapt to remote work likely stems from traditional business philosophies that prioritise physical presence and established routines over digital flexibility.
-![alt text](<Images/Analysis Images/Geographical Influence/remote_vis1.png>)
-![alt text](<Images/Analysis Images/Geographical Influence/remote_vis2.png>)
+  ![alt text](<Images/Analysis Images/Geographical Influence/remote_vis1.png>)
+  ![alt text](<Images/Analysis Images/Geographical Influence/remote_vis2.png>)
 
 - **The Remote Premium:** For the 2024 data job market, remote roles tend to have a higher average salary than onsite positions. This seems to be the effect of seniority. Senior positions show the highest remote adoption at 14.6% and have comparatively higher salaries reaching $153,423 compared to $138,780 for onsite. Conversely, Junior/Entry roles are are the only category where onsite pay exceeds remote pay, likely because these roles require more hands-on, onsite mentorship.
-![alt text](<Images/Analysis Images/Geographical Influence/remote_table2.png>)
-
+  ![alt text](<Images/Analysis Images/Geographical Influence/remote_table2.png>)
 
 ### **Degree Importance By Country:**
 
 #### Does where I live change how much employers care about a degree? And does a degree requirement lead to higher pay?
+
 ![alt text](<Images/Analysis Images/Geographical Influence/degree_table.png>)
+
 - **Global Shift to Skills-First Hiring:** By the end of 2024, 60% of job postings didn't require a degree and instead favoured the technical skills you brought to the table.
-![alt text](<Images/Analysis Images/Geographical Influence/degree_proportion_vis.png>)
+  ![alt text](<Images/Analysis Images/Geographical Influence/degree_proportion_vis.png>)
 - **Degree Importance in Europe:** European countries tend to require degrees more than other countries in the world, like U.K. (52.5%) and Poland (50.8%), with over half of their job postings requiring a degree.
 - The rest of the world has largely moved past this requirement with Less than ~40% of job postings requireing a degree.
 - **The U.S. Tech Hub as a Market Disruptor:** The global tech hub, the U.S. has 78% of its job postings not requiring a degree. Given the U.S. tech industry's market's influence on global hiring trends, this suggests that degrees may become increasingly optional for staying competitive in the data industry.
-![alt text](<Images/Analysis Images/Geographical Influence/degree_salary_vis.png>)
-- **No relationship between degree and higher pay:** The data suggests there is no correlation between holding a degree and a higher salary. Professionals with degrees in some countries may have a higher pay while in other countries, professionals don't need a degree for a higher pay. 
-
-
-
+  ![alt text](<Images/Analysis Images/Geographical Influence/degree_salary_vis.png>)
+- **No relationship between degree and higher pay:** The data suggests there is no correlation between holding a degree and a higher salary. Professionals with degrees in some countries may have a higher pay while in other countries, professionals don't need a degree for a higher pay.
 
 ### Overall Geographical Influence Key Insights:
+
 - **Global Tech Hubs:** The U.S. claims the "Global Tech Hub" title due to its sheer volume of job postings and companies. Secondary tech hubs include several European nations, India, and Singapore for East/South East Asia.
 - **Global Opportunity Density:** Smaller and emerging markets like El Salvador and Guam have the highest job-per-company density, while more developed job markets (U.S., India, Several European Countries) have a substantially higher volume of job postings and unique companies, despite not having as high of a density.
 - **Cultural Adoption Divide:** Asian job markets have lower remote job adoption rates likely due to deeply rooted onsite traditions, while western markets are less conservative and have higher remote adoption rates.
 - **Remote Pay Premium:** The average remote salary exceeds the average onsite salary due to senior roles having mroe remote positions and higher pay, skewing those averages.
 - **Global Shift to "Skills-First":** Degrees are most prevalent in Europe, but globally, the market is moving towards a skills-first economy, increasingly favouring technical skills competence over holding a formal degree, all without influencing a professional's yearly salary.
 - **U.S. favouring Skills over Degrees:** The global tech hub, the U.S. is favouring technical skills over a degree with over 78% of job postings not requiring a degree. Given the U.S. tech industry's market's influence on global hiring trends, this suggests that degrees may become increasingly optional for staying competitive in the data industry.
-
-
-
-## Role Comparison Analysis: Which career path offers the highest salary return relative to its technical complexity?
-
-#### **Technical ROI:**
-
-Which job role offers the highest salary return relative to its technical complexity? Considering technical skills and if a degree is required.
-
-#### **Seniority Difference:**
-
-Which role has the steepest salary growth from Junior to Senior level?
-
-#### **Degree Importance:**
-
-How does degree market share vary across roles, and does a degree requirement translate into a higher salary?
-
-#### **Skill Overlap between Data Analysts & Data Scientists:**
-
-There seems to be a lot of nuance between these roles and they are often mistaken for each other. So what percentage of Data Analyst skills overlap with Data Scientist Skills?
-
-### **Role Based Remoteness**
-
-Which specific job roles the the highest 'Remote Market Share', and is there a significant pay difference between remote and on-site positions for the same title?
