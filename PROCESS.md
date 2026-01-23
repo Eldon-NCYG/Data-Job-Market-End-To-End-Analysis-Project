@@ -56,8 +56,8 @@ To enable relational analysis, I restructured the dataset by removing these colu
 - **Skill & Category Mapping:** I extracted all unique job skills and associated categories from the `job_skills` & `job_type_skills` columns in the original dataset. A unique identifier was assigned for each unique skill and category. The results are [job_skills.csv](Schema/job_skills.csv) & [job_skill_categories.csv](Schema/job_skill_categories.csv).
 - **Python Pandas Data Cleaning:** Because the mapping of jobs to skills resulted in a dataset exceeding 2 million rows, I utilized Python (Pandas) to handle the final transformation, resulting in [cleaned_job_skill_connector.csv](Schema/cleaned_job_skill_connector.csv) .
 - **Ensuring Data Integrity:** During the process, I used the .explode() method, I broke down the comma-separated skill strings into individual rows, ensuring no data was lost to Excel's row limits and ensuring data integrity. The full process can be viewed [here](data_cleaning.py).
-- *More details about the Python cleaning process in the **Difficulties & Challenges** section at the bottom.*
-![alt text](Images/data_jobs_erd.jpg)
+- _More details about the Python cleaning process in the **Difficulties & Challenges** section at the bottom._
+  ![alt text](Images/data_jobs_erd.jpg)
 
 ### Other Data Cleaning Processes
 
@@ -85,11 +85,13 @@ The database consists of four core tables:
 - `job_skill_categories` - a lookup table grouping skills into specific categories.
 - `job_skill_connector` - a bridge table implementing a many-to-many relationship between job postings and skills.
 
-##  Data Importing and Ingestion
+## Data Importing and Ingestion
+
 [Data Import SQL File.](sql_scripts/data_import.sql) I used Table Data Import Wizard to import [job_skills.csv](Schema/job_skills.csv) & [job_skill_categories.csv](Schema/job_skill_categories.csv) to the database as these files don't contain a lot of rows. This manual method was efficient for a quick setup.
 
 ### Optimsing for Larger CSV files
- To handle large CSV imports with a very large number of rows (400k + job postings and 1m + job skill connections), I implemented a high performance loading process using LOAD DATA INFILE, temporarily disabling foreign key checks to speed up ingestion while preserving integrity once loading is complete. For example, below is the query I wrote to import [cleaned_job_skill_connector.csv](Schema/cleaned_job_skill_connector.csv), which had 2 million + rows of data.
+
+To handle large CSV imports with a very large number of rows (400k + job postings and 1m + job skill connections), I implemented a high performance loading process using LOAD DATA INFILE, temporarily disabling foreign key checks to speed up ingestion while preserving integrity once loading is complete. For example, below is the query I wrote to import [cleaned_job_skill_connector.csv](Schema/cleaned_job_skill_connector.csv), which had 2 million + rows of data.
 
 ```
 LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/cleaned_job_skill_connector.csv'
@@ -133,36 +135,40 @@ INNER JOIN job_skills AS js ON jconn.skill_id = js.skill_id
 INNER JOIN job_skill_categories AS jsc ON js.category_id = jsc.category_id;
 
 ```
-- **Primary Fact Table - `job_postings`:** Used as the primary facts source for general job market metrics. It is used for queries that do not require a job's associated skills. Using the base table minimizes computational overhead and improves query performance by avoiding unnecessary joins.
 
+- **Primary Fact Table - `job_postings`:** Used as the primary facts source for general job market metrics. It is used for queries that do not require a job's associated skills. Using the base table minimizes computational overhead and improves query performance by avoiding unnecessary joins.
 
 - **Analytical View - `v_job_skill_analysis`:** A unified interface that encapsulates the many-to-many relationships between job postings, job skills, and skill categories. Instead of repeatedly writing long join statements, this view provides structure that can be queried directly without the need to manually reconstruct the relational joins for every session.
 
-
-
 # Deep Analysis into the Data
-Rather than doing a simple surface-level summary about the data (which can be shown through data visualisations alone), I wanted to deliver a deeper analysis to uncover less obvious patterns, trends, and relationships. The full analysis and  in the Deep Analysis Section of the [here](ANALYSIS.md).
+
+Rather than doing a simple surface-level summary about the data (which can be shown through data visualisations alone), I wanted to deliver a deeper analysis to uncover less obvious patterns, trends, and relationships. The full analysis and in the Deep Analysis Section of the [here](ANALYSIS.md).
 
 #### For Each Executive Question's Sub Question:
+
 1. **Extraction & Querying:** An SQL query was written to retrieve the necessary data to answer the question [(SQL analysis file)](sql_scripts/analysis.sql).
 2. **Data Refinement:** Exported query results to Excel for final data cleaning and structural adjustments.
 3. **Visualisation:** Developed custom charts and visualisation within the same [Excel file](Visualisations/analysis_visualisations.xlsx) to transform raw numbers in a table into a visual narrative.
 4. **Insights Extraction:** Interpreted the data to form "Key Insights," providing a high-level summary at the end of each section for executive review.
 
-
-
 # Interactive Dashboard
 
+To provide a more dynamic view of the data, I have created two comprehensive Power BI dashboards. These dashboards allow for real-time filtering by different roles, remote jobs, degree required, etc.
 
+### First Dashboard:
 
+This dashboard provides a high-level general overview designed for comparing multiple data roles simultaneously. It acts as a benchmark tool to compare market share and role compensation across the industry.
 
+### Second Dashboard:
 
-
+This dashboard provides an in-depth Look at the statistics of a single, selected job title. It is designed for candidates looking to understand the specific barriers to entry and requirements for a particular career path.
 
 # Difficulties & Challenges
 
 ### Data Truncation via Excel Row Limits
+
 While conducting the SQL deep analysis, I discovered that my quarterly trend results for the latter half of the year (Q3 and Q4) were significantly lower than expected. Upon investigation, I identified that the [job_skill_connector](Schema/Unused/job_skill_connector_truncated.csv) table, which manages the many-to-many relationship between jobs and skills only contained the connections for about half of the jobs in the dataset. Because the data was initially processed and exported through Excel (CSV version), it was silently truncated at 1,048,576 rows, which is the maximum limit for an Excel worksheet. This resulted in the loss of nearly half of the skill-mapping data, leading to inaccurate insights during the initial phase of the project (all other tables are fine).
 
 ### Resolving the Problem
+
 To resolve this and ensure data integrity, instead of using Excel & Power Query for cleaning the `job_skill_connector`, I used Power Query and Python, specifically the Pandas library which can handle millions of rows without truncation. Once I cleaned the data, I ensured data integrity by making sure all records within the `job_skill_connector` performing a row-count validation between the raw source file and the SQL database.
