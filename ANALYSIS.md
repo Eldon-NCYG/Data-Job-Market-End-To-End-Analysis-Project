@@ -42,7 +42,7 @@ Note: In this query, i am only considering entry, junior and mid-level job posti
 - **Data Engineer Shortage Evidence:** A high `mid_level_avg_salary` compared to a `junior_avg_salary` for Data Engineers suggests a high-demand for more experienced Data Engineers. To secure candidates who have moved past the initial steep learning curve, employers offer a larger "experience premium," even at the mid-level.
 - **Small Salary Growth for Data Analysts:** As Data Analysts progress in seniority, their average salary only increases by about $10k - $15k, the smallest increments among all roles. This suggests that the technical ceiling for this role is lower, making it a good entry poiont but less lucrative as a 20-year career path. This trend explains why in the industry, many Data Analysts eventially switch over to more technical roles like Data Science or Engineering for salary growth (if they don't aim for managerial roles).
 
-#### **Degree Importance:**
+### **Degree Importance:**
 
 #### How does degree market share vary across roles, and does a degree requirement translate into a higher salary?
 
@@ -66,7 +66,7 @@ Note: In this query, i am only considering entry, junior and mid-level job posti
 - **Remote Premium:** The more technical engineer roles like Software, Data, and Machine Learning Engineers are not only more remotely available, they also have slightly higher salaries for remote postings. This is likely because companies are competing to secure top-tier technical talent, so the choice of being onsite or remote can be more appealing to more of these candidates.
 - **Analyst Onsite Premium:** Business and especially Data analysts have higher salaries for onsite positions. This is very likely to compensate analysts for the cost of living and the requirement to be physically present for stakeholder collaboration.
 
-#### **Skill Overlap between Data Analysts & Data Scientists:**
+### **Skill Overlap between Data Analysts & Data Scientists:**
 
 There seems to be a lot of nuance between these roles and they are often mistaken for each other for a lot of job postings, especially when hiring managers are creating job postings and don't know the actual difference between Data Analysts & Scientists. Data Analysts also often switch over to Data Science roles as they progress in their career as Data Science roles offers a higher pay. So what percentage of Data Analyst skills overlap with Data Scientist Skills?
 ![alt text](<Images/Analysis Images/Role Comparison/da_overlap_ds_vis.png>)
@@ -76,10 +76,10 @@ There seems to be a lot of nuance between these roles and they are often mistake
 - **Visualisation Tools:** Visualization tools like Tableau or Power BI also appear frequently in both, though they are more prevelant for Data Analysts.
 - **Transitioning from Data Analytics to Science:** Roughly 70% of a Data Analyst's technical skillset is applicable to Data Science. The remaining 30% consists of machine learning libraries and advanced statistical modeling. These more technical skills are what differentiates a Data Analyst from a Data Scientist, and is rewarded with a higher salary.
 
-#### Role Comparison Analysis Key Insights:
+### Role Comparison Analysis Key Insights Summary:
 
 - **Complexity Premium:** Data Scientists, Software & ML Engineers offer the market's best technical ROI, rewarding professionals who master the industry's most difficult technical skills and concepts the highest compensation in pay. These salaries can dramatically increase as professionals advance in seniority.
-- **Data Engineer Volume Trap:** Despite Data Engineering roles have the most market share, it has the lowest total technical ROI. This is due to the role's complexity and requirements. There aren't enough people willing to endure the learning curve, leaving the industry with a shortage of Data Engineers.
+- **Data Engineer Volume Trap:** Despite Data Engineering roles having the most market share, it has the lowest total technical ROI. This is due to the role's complexity and requirements. There aren't enough people willing to endure the learning curve, leaving the industry with a shortage of Data Engineers.
 - **Analyst Career Pivot:** Between Business & Data Analaysts, Data Analytics yields a higher return on investment when it comes to both salary and job opportunities. But because of these role's low complexity, their base salaries are typically lower. So as analysts progress in their career, many would eventually switch over to Data Science for salary growth.
 - **Data Analysts Vs. Data Scientists Skillset:** Roughly 70% of a Data Analyst's technical skillset is applicable to Data Science. The remaining 30% consists of machine learning libraries and advanced statistical modeling. These more technical skills are what differentiates a Data Analyst from a Data Scientist, and is rewarded with a higher salary.
 - **Role Remoteness:** Technically heavy roles Engineers have the largest remote market as their roles focus on independent technical execution and involve fewer client-facing meetings. Business intelligence roles like Analysts are responsible for informing stakeholders about insights and presenting strategies, which require in-person collaboration to ensure clear communication. So these roles have a smaller remote market.
@@ -167,7 +167,8 @@ The month over month percentage change is showing a steady decline as the year p
 - For every 1 Junior job posted in 2024, there were approximately 31 Mid-level jobs. This confirms that the barrier to entry for the data job market is getting higher.
 - **Economic Struggle Worldwide:** A potential reason for this could be due to the slower worldwide economic growth (a lot of countries in recession) in 2024, leading to companies trying to cut costs on employees by prioritising candidates who can contribute immediately without extensive training.
 
-### **Role Specific Volatility:** Which specific roles showed the most consistent hiring volume regardless of the season?
+### **Role Specific Volatility:** 
+#### Which specific roles showed the most consistent hiring volume regardless of the season?
 
 ![Volatility Table](<Images/Analysis Images/Market Trends/volatility_table.png>)
 
